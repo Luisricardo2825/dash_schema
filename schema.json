@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "src": {
+      "type": "string"
+    },
+    "outDir": {
+      "type": "string"
+    },
+    "jsp": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["variable", "body", "header"]
+          },
+          "code": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          }
+        },
+        "required": ["type", "code", "path"],
+        "anyOf": [
+          {
+            "properties": {
+              "type": { "enum": ["variable"] },
+              "varName": { "type": "string" }
+            },
+            "required": ["varName"]
+          },
+          {
+            "properties": {
+              "type": { "enum": ["body"] }
+            }
+          },
+          {
+            "properties": {
+              "type": { "enum": ["header"] }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "required": ["src", "outDir", "jsp"]
+}
